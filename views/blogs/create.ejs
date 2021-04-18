@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%- include('../partials/header') %>
+<body>
+	<%- include('../partials/navbar') %>
+    <link rel="stylesheet" href="../css/style.css"> 
+    <main>
+        <div class="container">
+            <h1>Create your blog:</h1>
+                <form method="post" action="/blogs/save">
+                    <div>Title: <input type="text" name="blog[title]"></div><br>
+                    <div>Content: <textarea name="blog[content]"></textarea></div>
+                    <br><br>
+                    <div><button class="btn btn-success" type="submit">Enter!</button></div>
+                </form>
+        </div>
+    </main>
+    <%- include('../partials/footer') %>
+	<%- include('../partials/bootstrap_scripts') %>
+</body>
+</html>

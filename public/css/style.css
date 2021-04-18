@@ -1,6 +1,10 @@
 body {
   padding-top: 3.5rem;
 }
+body a {
+  color: white;
+  text-decoration: none;
+}
 
 .footer {
   position: absolute;
