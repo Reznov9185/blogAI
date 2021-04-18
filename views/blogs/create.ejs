@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<%- include('../partials/header') %>
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <body>
 	<%- include('../partials/navbar') %>
     <link rel="stylesheet" href="../css/style.css"> 
@@ -17,5 +18,8 @@
     </main>
     <%- include('../partials/footer') %>
 	<%- include('../partials/bootstrap_scripts') %>
+    <script>
+        CKEDITOR.replace( 'blog[content]' );  
+    </script>
 </body>
 </html>
