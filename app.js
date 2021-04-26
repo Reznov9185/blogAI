@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
   blogModel.listAllBlogs().then(function(blogs){
     res.render("index", {data:blogs});
   }).catch(function(error){
-      res.status(500).send({ error: 'Something went wrong! ' + error })
+      res.status(500).send({ error: 'Something went wrong! ' + error });
   });
 });
 
@@ -37,7 +37,16 @@ app.post('/blogs/save', (req, res) => {
   newBlog.save().then(function(){
     res.redirect('/');
   }).catch(function(error){
-        res.status(500).send({ error: 'Failed to add new blog! ' + error})
+        res.status(500).send({ error: 'Failed to add new blog! ' + error});
+  });
+});
+
+app.get('/blogs/:id', (req, res) => {
+  var blogId = req.params.id;
+  blogModel.fetchBlog(blogId).then(function(blog){
+    res.render("blogs/index", {data:blog});
+  }).catch(function(error){
+      res.status(500).send({ error: 'Something went wrong! ' + error });
   });
 });
 
