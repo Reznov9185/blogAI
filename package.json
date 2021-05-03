@@ -15,7 +15,9 @@
     "mongoose": "^5.12.4",
     "node-sass": "^5.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "git": "^0.1.5"
+  },
   "repository": {
     "type": "git",
     "url": "blogAI"
