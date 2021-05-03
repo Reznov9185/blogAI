@@ -10,7 +10,7 @@
 				<% data.forEach((d, i) => { %>
 					<div class="col-md-4">
 						<h2><%= d.title %></h2>
-						<p><%- d.content.substring(0,20) %></p>
+						<p><%- d.content.substring(0,50) %></p>
 						<p><a class="btn btn-secondary" href="/blogs/<%= d._id %>" role="button">View details »</a></p>
 					</div>
 				<% }) %>
