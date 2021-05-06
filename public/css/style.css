@@ -5,6 +5,9 @@ body {
 body nav {
   background: linear-gradient(63deg, mediumpurple 15%, #5c799a 69%, #528aa1 100%);
 }
+body nav .navbar-brand {
+  font-size: 18pt;
+}
 body nav .nav-item {
   font-size: 16pt;
 }

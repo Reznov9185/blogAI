@@ -9,6 +9,9 @@ body {
 
     nav {
         background: $theme-nav-color;
+        .navbar-brand {
+            font-size: 18pt;
+        }
         .nav-item {
             font-size: 16pt;
         }
