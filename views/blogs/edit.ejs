@@ -9,8 +9,8 @@
         <div class="container">
             <h1>Create your blog:</h1>
                 <form method="post" action="/blogs/save">
-                    <div>Title: <input type="text" name="blog[title]"></div><br>
-                    <div>Content: <textarea id="ckeditor_blog" name="blog[content]"></textarea></div>
+                    <div>Title: <input type="text" name="blog[title]" value="<%= data.title %>"></div><br>
+                    <div>Content: <textarea id="ckeditor_blog" name="blog[content]" value="<%= data.content %>"></textarea></div>
                     <br><br>
                     <div><button class="btn btn-success" type="submit">Enter!</button></div>
                 </form>
@@ -19,7 +19,10 @@
     <%- include('../partials/footer') %>
 	<%- include('../partials/bootstrap_scripts') %>
     <script>
-        CKEDITOR.replace("ckeditor_blog");  
+        CKEDITOR.replace("ckeditor_blog");
+        window.addEventListener('load', (event) => {
+            CKEDITOR.instances.ckeditor_blog.insertHtml('<p>This is a new paragraph.</p>');
+        });
     </script>
 </body>
 </html>
