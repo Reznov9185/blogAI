@@ -2,27 +2,38 @@
 <html lang="en">
 	<%- include('../partials/header') %>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <body>
 	<%- include('../partials/navbar') %>
     <link rel="stylesheet" href="../../css/style.css"> 
     <main>
         <div class="container">
-            <h1>Create your blog:</h1>
-                <form method="post" action="/blogs/save">
-                    <div>Title: <input type="text" name="blog[title]" value="<%= data.title %>"></div><br>
-                    <div>Content: <textarea id="ckeditor_blog" name="blog[content]" value="<%= data.content %>"></textarea></div>
-                    <br><br>
-                    <div><button class="btn btn-success" type="submit">Enter!</button></div>
-                </form>
+            <h1 class="title py-4">Update your blog</h1>
+            <form method="post" action="/blogs/update/<%= data._id %>">
+                <input name="_method" type="hidden" value="PUT">
+                <div class="py-3">
+                    <span class="title input-title">Title</span> 
+                    <input type="text" class="form-control" name="blog[title]" value="<%= data.title %>">
+                </div>
+                <br>
+                <div style="display: none;" id="blog_content"><%= data.content %></div>
+                <div class="py-3"> 
+                    <span class="title input-title">Content</span> 
+                    <textarea id="ckeditor_blog" name="blog[content]" value="<%= data.content %>"></textarea>
+                </div>
+                <br><br>
+                <div><button class="btn btn-success" type="submit">POST!</button></div>
+            </form>
         </div>
     </main>
     <%- include('../partials/footer') %>
 	<%- include('../partials/bootstrap_scripts') %>
     <script>
-        CKEDITOR.replace("ckeditor_blog");
-        window.addEventListener('load', (event) => {
-            CKEDITOR.instances.ckeditor_blog.insertHtml('<p>This is a new paragraph.</p>');
+        var editor = CKEDITOR.replace("ckeditor_blog");
+        editor.on("instanceReady", function() {
+            editor.insertHtml(document.getElementById("blog_content").innerHTML);
         });
+        CKEDITOR.addCss('.cke_editable { background-color: mediumpurple; color: white }');
     </script>
 </body>
 </html>

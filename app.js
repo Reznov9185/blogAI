@@ -10,16 +10,24 @@ app.set('view engine', 'ejs'); // register the template engine
 app.use(express.static('public'));
 
 // Database connection and models
-mongoose.connect('mongodb://localhost:27017/blog_database', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://localhost:27017/blog_database', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
         .catch(error => console.log("Something went wrong: " + error));
 var blogModel = require("./models/blog");
+const { update } = require('./models/blog');
 
 // Configs
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
-app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/views'))
+app.use( function( req, res, next ) {
+  if ( req.query._method == 'DELETE' ) {
+      req.method = 'DELETE';
+      req.url = req.path;
+  }       
+  next(); 
+});;
 
 // Application Index
 app.get('/', (req, res) => {
@@ -42,6 +50,23 @@ app.post('/blogs/save', (req, res) => {
     res.redirect('/');
   }).catch(function(error){
         res.status(500).send({ error: 'Failed to add new blog! ' + error});
+  });
+});
+
+// Blog update
+app.post('/blogs/update/:id', (req, res) => {
+  blogModel.findOneAndUpdate({_id: req.params.id}, req.body.blog, null).then(function() {
+    res.redirect('/');
+  }).catch(function(error){
+        res.status(500).send({ error: 'Failed to update new blog! ' + error});
+  });
+});
+
+app.delete('/blogs/delete/:id', (req, res) => {
+  blogModel.findByIdAndDelete({_id: req.params.id}, null, null).then(function() {
+    res.redirect('/');
+  }).catch(function(error){
+        res.status(500).send({ error: 'Failed to delete the blog! ' + error});
   });
 });
 

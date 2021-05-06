@@ -1,11 +1,50 @@
+$theme-nav-color: linear-gradient(63deg, rgba(147,112,219,1) 15%, rgba(92,121,154,1) 69%, rgba(82,138,161,1) 100%);;
+$theme-nav-invert-color: #528aa1;
+$theme-btn-color: mediumpurple;
+$footer-color: #F5F5F5;
+
 body {
+    height: 100%;
     padding-top: 3.5rem;
+
+    nav {
+        background: $theme-nav-color;
+        .nav-item {
+            font-size: 16pt;
+        }
+    }
     a {
         text-decoration: none;
     }
     main {
+        overflow:auto;
+        padding-bottom: 75px;
+        height: 93.5vh;
         .container {
             padding: 2rem;
+            .card {
+                min-height: 15rem;
+                .card-header {
+                    color: white;
+                    background: $theme-nav-color;
+                    text-transform: capitalize;
+                }
+            }
+            .btn-primary, .btn-success {
+                background: $theme-btn-color;
+                border-color: $theme-btn-color;
+            }
+            .btn-secondary {
+                background: $theme-nav-invert-color;
+                border-color: $theme-nav-invert-color;
+            }
+            .title {
+                color: $theme-nav-invert-color;
+                text-transform: capitalize;
+                &.input-title {
+                    font-size: 1.5rem;
+                }
+            }
         }
     }
     button {
@@ -17,12 +56,16 @@ body {
             text-decoration: underline;
         }
     }
+    .cke_chrome {
+        border: 1px solid $theme-btn-color !important;
+    }
 }
+  
 .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    line-height: 60px;
-    background-color: #f5f5f5;
+    background-color: $footer-color;
+    position: relative;
+    margin-top: -75px;
+    height: 75px;
+    clear:both;
+    padding-top:20px;
 }
