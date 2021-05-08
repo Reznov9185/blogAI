@@ -6,9 +6,18 @@
 	<link rel="stylesheet" href="../../css/style.css"> 
 	<main role="main">
 		<div class="container">
+            <h2 class="title py-4">Report</h2>
 			<div class="col-md-12">
-                <h2 class="title py-4"><%= data.title %></h2>
-                <p><%- data.content %></p>
+                <% data.forEach((d, i) => { %>
+					<div class="col-sm-6 py-5">
+						<div class="card">
+							<h5 class="card-header"><%= d.sentence %></h5>
+							<div class="card-body">
+							  <p class="card-text"><%- JSON.stringify(d.classification) %></p>
+							</div>
+						  </div>
+					</div>
+				<% }) %>
             </div>
 			<hr>
 		  </div>
