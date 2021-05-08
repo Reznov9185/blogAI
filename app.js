@@ -85,9 +85,7 @@ app.get('/blogs/:id', (req, res) => {
   
   var blogId = req.params.id; 
   classifier.checkToxicity(blogId);
-  
 
-  
   blogModel.fetchBlog(blogId).then(function(blog){
     res.render("blogs/index", {data:blog});
   }).catch(function(error){

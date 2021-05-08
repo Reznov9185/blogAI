@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "##### To run - `npm` and `node` installed    - Run `npm install` to install the dependencies - Run `node app.js` to run the node server on port `3000` - Browse: `http://localhost:3000/`",
   "main": "app.js",
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
