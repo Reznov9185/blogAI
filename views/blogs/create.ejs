@@ -7,19 +7,24 @@
     <link rel="stylesheet" href="../../css/style.css"> 
     <main>
         <div class="container">
-            <h1>Create your blog:</h1>
-                <form method="post" action="/blogs/save">
-                    <div>Title: <input type="text" name="blog[title]"></div><br>
-                    <div>Content: <textarea id="ckeditor_blog" name="blog[content]"></textarea></div>
-                    <br><br>
-                    <div><button class="btn btn-success" type="submit">Enter!</button></div>
-                </form>
+            <h1 class="title py-4">Create your blog</h1>
+            <form method="post" action="/blogs/save">
+                <div class="py-3">
+                    <span class="title input-title">Title</span> 
+                    <input type="text" class="form-control" name="blog[title]"></div><br>
+                <div class="py-3">
+                    <span class="title input-title">Content</span>
+                    <textarea id="ckeditor_blog" name="blog[content]"></textarea></div>
+                <br><br>
+                <div><button class="btn btn-success" type="submit">POST!</button></div>
+            </form>
         </div>
     </main>
     <%- include('../partials/footer') %>
 	<%- include('../partials/bootstrap_scripts') %>
     <script>
-        CKEDITOR.replace("ckeditor_blog");  
+        CKEDITOR.replace("ckeditor_blog");
+        CKEDITOR.addCss('.cke_editable { background-color: mediumpurple; color: white }');
     </script>
 </body>
 </html>
