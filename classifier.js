@@ -32,6 +32,7 @@ exports.checkToxicity = async function  (blogId){
       .replace( /(<([^>]+)>)/ig, '')
       .replace(/^\s+|\s+$/g, '')
       .replace(/(\r\n|\n|\r)/gm, "")
+      .replace(/&#39;/g, "'")
       .split(".");
       
       console.log(sentences);
@@ -71,6 +72,8 @@ exports.checkToxicity = async function  (blogId){
           }).catch(function(error){
             console.log("Error" + error);
           });
+
+          // console.log(JSON.stringify(jsonData.probabilities));
         }
       });
     
@@ -81,5 +84,4 @@ exports.checkToxicity = async function  (blogId){
   }
 };
 
-// checkToxicity("6094fe028944b74324111a44");
 
