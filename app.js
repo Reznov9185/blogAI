@@ -1,8 +1,11 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 const fs = require('fs');
 const _ = require("lodash");
+const classifier = require('./classifier.js')
+
 
 const app = express();
 const port = 3000;
@@ -20,6 +23,7 @@ mongoose.connect('mongodb://localhost:27017/blog_database', {useNewUrlParser: tr
         .catch(error => console.log("Something went wrong: " + error));
 var blogModel = require("./models/blog");
 const { update } = require('./models/blog');
+const blogReportModel = require('./models/blog_report.js');
 
 // Configs
 app.use(express.json());
@@ -53,6 +57,7 @@ app.get('/blogs/create', (req, res) => {
 app.post('/blogs/save', (req, res) => {
   var newBlog = new blogModel(req.body.blog);
   newBlog.save().then(function(){
+    classifier.checkToxicity(newBlog._id);
     res.redirect('/');
   }).catch(function(error){
         res.status(500).send({ error: 'Failed to add new blog! ' + error});
@@ -62,6 +67,7 @@ app.post('/blogs/save', (req, res) => {
 // Blog update
 app.post('/blogs/update/:id', (req, res) => {
   blogModel.findOneAndUpdate({_id: req.params.id}, req.body.blog, null).then(function() {
+    classifier.checkToxicity(req.params.id);
     res.redirect('/');
   }).catch(function(error){
         res.status(500).send({ error: 'Failed to update new blog! ' + error});
@@ -76,9 +82,23 @@ app.delete('/blogs/delete/:id', (req, res) => {
   });
 });
 
+// Blog AI Report
+app.get('/blogs/report/:id', (req, res) => {
+
+  var blogId = req.params.id;
+
+  blogReportModel.fetchBlogReport(blogId).then(function(blogReport){
+    res.render("blogs/report", {data:blogReport, blogId: blogId});
+  }).catch(function(error){
+      res.status(500).send({ error: 'Something went wrong! ' + error });
+  });
+})
+
 // Blog index
 app.get('/blogs/:id', (req, res) => {
-  var blogId = req.params.id;
+  
+  var blogId = req.params.id; 
+
   blogModel.fetchBlog(blogId).then(function(blog){
     res.render("blogs/index", {data:blog});
   }).catch(function(error){

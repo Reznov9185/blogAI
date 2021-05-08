@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<%- include('../partials/header') %>
+<body>
+	<%- include('../partials/navbar') %>
+	<link rel="stylesheet" href="../../css/style.css"> 
+	<main role="main">
+		<div class="container">
+            <h2 class="title py-4">Report</h2>
+			<% data.forEach((d, i) => { %>
+                <% var classification = d.classification %>
+                <div class="col-sm-6 py-5">
+                    <div class="card">
+                        <h5 class="card-header"><%= d.sentence %></h5>
+                        <div class="card-body">
+                          <p class="card-text"> 
+                            <% for (const [key, value] of Object.entries(classification)) { %>
+                                <% var statusClass = value['match'] == true  ? 'bg-danger' : 'bg-info' %>
+                                <div class="p-3 mb-2 <%= statusClass %> text-white rounded">
+                                    <%= key %>: <%= value["match"] %>
+                                </div>
+                            <% } %>
+                          </p>
+                        </div>
+                      </div>
+                </div>
+            <% }) %>
+			<hr>
+		  </div>
+		  <div class="container">
+            <a href="/blogs/edit/<%= blogId %>">
+				<button type="button" class="btn btn-success btn-lg btn-block">
+					Update Blog
+				</button>
+			</a>
+			<a href="/blogs/delete/<%= blogId %>?_method=DELETE" onclick="return confirm('Are you sure?')">
+				<button type="button" class="btn btn-danger btn-lg btn-block">
+					Delete!
+				</button>
+			</a>
+		  </div>
+	</main>
+	<%- include('../partials/footer') %>
+	<%- include('../partials/bootstrap_scripts') %>
+</body>
+</html>

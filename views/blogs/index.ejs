@@ -3,7 +3,7 @@
 	<%- include('../partials/header') %>
 <body>
 	<%- include('../partials/navbar') %>
-	<link rel="stylesheet" href="../css/style.css"> 
+	<link rel="stylesheet" href="../../css/style.css"> 
 	<main role="main">
 		<div class="container">
 			<div class="col-md-12">
@@ -13,14 +13,16 @@
 			<hr>
 		  </div>
 		  <div class="container">
-			<button type="button" class="btn btn-success btn-lg btn-block">
-				<a href="/blogs/edit/<%= data._id%>">Update Blog</a>
-			</button>
-			<button type="button" class="btn btn-danger btn-lg btn-block">
-				<a href="/blogs/delete/<%= data._id%>?_method=DELETE" onclick="return confirm('Are you sure?')">
+			<a href="/blogs/edit/<%= data._id%>">
+				<button type="button" class="btn btn-success btn-lg btn-block">
+					Update Blog
+				</button>
+			</a>
+			<a href="/blogs/delete/<%= data._id%>?_method=DELETE" onclick="return confirm('Are you sure?')">
+				<button type="button" class="btn btn-danger btn-lg btn-block">
 					Delete!
-				</a>
-			</button>
+				</button>
+			</a>
 		  </div>
 	</main>
 	<%- include('../partials/footer') %>
