@@ -2,7 +2,6 @@
 <html lang="en">
 	<%- include('../partials/header') %>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <body>
 	<%- include('../partials/navbar') %>
     <link rel="stylesheet" href="../../css/style.css"> 
@@ -16,7 +15,10 @@
                     <input type="text" class="form-control" name="blog[title]" value="<%= data.title %>">
                 </div>
                 <br>
-                <div style="display: none;" id="blog_content"><%= data.content %></div>
+                <div class="py-3">
+                    <span class="title input-title">Previous Content</span> 
+                    <p><%- data.content %></p>
+                </div>
                 <div class="py-3"> 
                     <span class="title input-title">Content</span> 
                     <textarea id="ckeditor_blog" name="blog[content]" value="<%= data.content %>"></textarea>
@@ -30,9 +32,6 @@
 	<%- include('../partials/bootstrap_scripts') %>
     <script>
         var editor = CKEDITOR.replace("ckeditor_blog");
-        editor.on("instanceReady", function() {
-            editor.insertHtml(document.getElementById("blog_content").innerHTML);
-        });
         CKEDITOR.addCss('.cke_editable { background-color: mediumpurple; color: white }');
     </script>
 </body>

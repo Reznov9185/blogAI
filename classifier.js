@@ -31,17 +31,23 @@ exports.checkToxicity = async function  (blogId){
       .replace(/&amp;/g,'&')
       .replace( /(<([^>]+)>)/ig, '')
       .replace(/^\s+|\s+$/g, '')
+      .replace(/(\r\n|\n|\r)/gm, "")
       .split(".");
       
-      console.log(sentences); 
+      console.log(sentences);
       model.classify(sentences).then(predictions => {
         // `predictions` is an array of objects, one for each prediction head,
         // that contains the raw probabilities for each input along with the
         // final prediction in `match` (either `true` or `false`).
         // If neither prediction exceeds the threshold, `match` is `null`.
         predictStr = JSON.stringify(predictions, null, 2);
-        // console.log(predictStr);
+        console.log(sentences);
+        console.log(predictStr);
 
+        // CleanUp Previous Report Data on Database
+        BlogReport.deleteBlogReports(checkblog._id);
+
+        // Store new report to the BlogReport collection
         sentences.forEach(storeReport);
 
         function storeReport(item, index) {

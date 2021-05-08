@@ -42,7 +42,6 @@ app.use( function( req, res, next ) {
 // Application Index
 app.get('/', (req, res) => {
   blogModel.listAllBlogs().then(function(blogs){
-    console.log({data:blogs})
     res.render("index", {data:blogs});
   }).catch(function(error){
       res.status(500).send({ error: 'Something went wrong! ' + error });
@@ -89,7 +88,7 @@ app.get('/blogs/report/:id', (req, res) => {
   var blogId = req.params.id;
 
   blogReportModel.fetchBlogReport(blogId).then(function(blogReport){
-    res.render("blogs/report", {data:blogReport});
+    res.render("blogs/report", {data:blogReport, blogId: blogId});
   }).catch(function(error){
       res.status(500).send({ error: 'Something went wrong! ' + error });
   });
