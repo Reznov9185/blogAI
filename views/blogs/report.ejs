@@ -7,29 +7,37 @@
 	<main role="main">
 		<div class="container">
             <h2 class="title py-4">Report</h2>
-			<div class="col-md-12">
-                <% data.forEach((d, i) => { %>
-					<div class="col-sm-6 py-5">
-						<div class="card">
-							<h5 class="card-header"><%= d.sentence %></h5>
-							<div class="card-body">
-							  <p class="card-text"><%- JSON.stringify(d.classification) %></p>
-							</div>
-						  </div>
-					</div>
-				<% }) %>
-            </div>
+			<% data.forEach((d, i) => { %>
+                <% var classification = d.classification %>
+                <div class="col-sm-6 py-5">
+                    <div class="card">
+                        <h5 class="card-header"><%= d.sentence %></h5>
+                        <div class="card-body">
+                          <p class="card-text"> 
+                            <% for (const [key, value] of Object.entries(classification)) { %>
+                                <% var statusClass = value['match'] == true  ? 'bg-danger' : 'bg-info' %>
+                                <div class="p-3 mb-2 <%= statusClass %> text-white rounded">
+                                    <%= key %>: <%= value["match"] %>
+                                </div>
+                            <% } %>
+                          </p>
+                        </div>
+                      </div>
+                </div>
+            <% }) %>
 			<hr>
 		  </div>
 		  <div class="container">
-			<button type="button" class="btn btn-success btn-lg btn-block">
-				<a href="/blogs/edit/<%= data._id%>">Update Blog</a>
-			</button>
-			<button type="button" class="btn btn-danger btn-lg btn-block">
-				<a href="/blogs/delete/<%= data._id%>?_method=DELETE" onclick="return confirm('Are you sure?')">
+            <a href="/blogs/edit/<%= blogId %>">
+				<button type="button" class="btn btn-success btn-lg btn-block">
+					Update Blog
+				</button>
+			</a>
+			<a href="/blogs/delete/<%= blogId %>?_method=DELETE" onclick="return confirm('Are you sure?')">
+				<button type="button" class="btn btn-danger btn-lg btn-block">
 					Delete!
-				</a>
-			</button>
+				</button>
+			</a>
 		  </div>
 	</main>
 	<%- include('../partials/footer') %>
