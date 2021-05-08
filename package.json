@@ -15,7 +15,8 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "mongoose": "^5.12.4",
-    "node-sass": "^5.0.0"
+    "node-sass": "^5.0.0",
+    "nodeplotlib": "^0.7.3"
   },
   "devDependencies": {
     "git": "^0.1.5"

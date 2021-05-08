@@ -3,7 +3,10 @@ const toxicity = require('@tensorflow-models/toxicity');
 const Blog = require('./models/blog');
 const BlogReport = require('./models/blog_report');
 const mongoose = require('mongoose');
+
+
 // export {checkToxicity};
+
 
 
 mongoose.connect('mongodb://localhost:27017/blog_database', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
