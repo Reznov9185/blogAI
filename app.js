@@ -1,8 +1,11 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 const fs = require('fs');
 const _ = require("lodash");
+const classifier = require('./classifier.js')
+
 
 const app = express();
 const port = 3000;
@@ -38,6 +41,7 @@ app.use( function( req, res, next ) {
 // Application Index
 app.get('/', (req, res) => {
   blogModel.listAllBlogs().then(function(blogs){
+    console.log({data:blogs})
     res.render("index", {data:blogs});
   }).catch(function(error){
       res.status(500).send({ error: 'Something went wrong! ' + error });
@@ -78,7 +82,12 @@ app.delete('/blogs/delete/:id', (req, res) => {
 
 // Blog index
 app.get('/blogs/:id', (req, res) => {
-  var blogId = req.params.id;
+  
+  var blogId = req.params.id; 
+  classifier.checkToxicity(blogId);
+  
+
+  
   blogModel.fetchBlog(blogId).then(function(blog){
     res.render("blogs/index", {data:blog});
   }).catch(function(error){

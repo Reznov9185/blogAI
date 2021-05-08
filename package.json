@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "##### To run - `npm` and `node` installed    - Run `npm install` to install the dependencies - Run `node app.js` to run the node server on port `3000` - Browse: `http://localhost:3000/`",
   "main": "app.js",
+  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +11,8 @@
   "author": "team_blog_AI",
   "license": "ISC",
   "dependencies": {
+    "@tensorflow-models/toxicity": "^1.2.2",
+    "@tensorflow/tfjs": "^3.6.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "mongoose": "^5.12.4",
