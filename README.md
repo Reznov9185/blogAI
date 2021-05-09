@@ -9,7 +9,8 @@
 
 ##### To develop
 1. Keep running `sass --watch scss/index.scss:public/css/style.css` and edit your css in `scss/index.scss` for now.
-2. Use `nodemon app.js` is place of `node app.js` (doesn't require to restart node each time).
+2. Make sure you have mongodb installed and running. Check `app.js` for the connection string for the `mongo` database.
+3. Use `nodemon app.js` is place of `node app.js` (doesn't require to restart node each time).
 
 
 ##### Todo list:
