@@ -1,30 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 	<%- include('../partials/header') %>
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+</head>
 <body>
 	<%- include('../partials/navbar') %>
 	<link rel="stylesheet" href="../../css/style.css"> 
 	<main role="main">
+		<% var yProbabilties = [] %>
 		<div class="container">
             <h2 class="title py-4">Report</h2>
-			<% data.forEach((d, i) => { %>
-                <% var classification = d.classification %>
-                <div class="col-sm-6 py-5">
-                    <div class="card">
-                        <h5 class="card-header"><%= d.sentence %></h5>
-                        <div class="card-body">
-                          <p class="card-text"> 
-                            <% for (const [key, value] of Object.entries(classification)) { %>
-                                <% var statusClass = value['match'] == true  ? 'bg-danger' : 'bg-info' %>
-                                <div class="p-3 mb-2 <%= statusClass %> text-white rounded">
-                                    <%= key %>: <%= value["match"] %>
-                                </div>
-                            <% } %>
-                          </p>
-                        </div>
-                      </div>
-                </div>
-            <% }) %>
+			<div class="row">
+				<% data.forEach((d, i) => { %>
+					<% var classification = d.classification %>
+					<div class="col-sm-6 py-5">
+						<div class="card">
+							<h5 class="card-header"><%= d.sentence %></h5>
+							<div class="card-body">
+							  <p class="card-text"> 
+								<% for (const [key, value] of Object.entries(classification)) { %>
+									<% var statusClass = value['match'] == true  ? 'bg-danger' : 'bg-info' %>
+									<div class="p-3 mb-2 <%= statusClass %> text-white rounded">
+										<% var objectNames = Object.keys(value["probabilities"]); %>
+										<% var id = objectNames[1]%>
+										<% var [probKey, probValue] = Object.entries(value["probabilities"]) %>
+										<% yProbabilties.push(probValue[id]) %>
+										<%= key %>: <%= value['match']%>
+									</div>
+								<% } %>
+							  </p>
+							</div>
+						  </div>
+					</div>
+					<div class="col-sm-6 py-5">
+						<canvas id="chart<%-i%>" width="400" hieght="400" ></canvas>
+								<script>
+									createChart();
+									async function createChart(){
+										var getData = []
+										getData.push('<%= yProbabilties[0]%>');
+										getData.push('<%= yProbabilties[1]%>');
+										getData.push('<%= yProbabilties[2]%>');
+										getData.push('<%= yProbabilties[3]%>');
+										getData.push('<%= yProbabilties[4]%>');
+										getData.push('<%= yProbabilties[5]%>');
+										getData.push('<%= yProbabilties[6]%>');
+																			
+										const ctx = document.getElementById('chart<%-i%>').getContext('2d');
+										const myChart = new Chart(ctx, {
+											type: 'bar',
+											data: {
+												labels: ['Identity attack', 'Insult', 'Obscene', 'Severe toxicity', 'Sexual explicit', 'Threat', 'Toxicity'],
+												datasets: [{
+													label: 'Toxicity probabilities',
+													data: getData,
+													backgroundColor: [
+														'rgba(255, 99, 132, 0.2)'
+														// 'rgba(54, 162, 235, 0.2)',
+														// 'rgba(255, 206, 86, 0.2)',
+														// 'rgba(75, 192, 192, 0.2)',
+														// 'rgba(153, 102, 255, 0.2)',
+														// 'rgba(255, 159, 64, 0.2)',
+														// 'rgba(255, 130, 238, 0.2)'
+													],
+													borderColor: [
+														'rgba(255, 99, 132, 1)'
+														// 'rgba(54, 162, 235, 1)',
+														// 'rgba(255, 206, 86, 1)',
+														// 'rgba(75, 192, 192, 1)',
+														// 'rgba(153, 102, 255, 1)',
+														// 'rgba(255, 159, 64, 1)',
+														// 'rgba(255, 130, 238, 1)'
+													],
+													borderWidth: 1
+												}]
+											},
+											options: {
+												scales: {
+													y: {
+														beginAtZero: true
+														// suggestedMax: 1
+													},
+												}
+											}
+											
+										});									
+									}
+									
+								</script>
+					</div>
+				<% }) %>
+			</div>
 			<hr>
 		  </div>
 		  <div class="container">
@@ -43,4 +110,5 @@
 	<%- include('../partials/footer') %>
 	<%- include('../partials/bootstrap_scripts') %>
 </body>
+
 </html>
