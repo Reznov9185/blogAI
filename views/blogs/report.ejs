@@ -8,12 +8,12 @@
 	<%- include('../partials/navbar') %>
 	<link rel="stylesheet" href="../../css/style.css"> 
 	<main role="main">
-		<% var yProbabilties = [] %>
 		<div class="container">
             <h2 class="title py-4">Report</h2>
 			<div class="row">
 				<% data.forEach((d, i) => { %>
 					<% var classification = d.classification %>
+					<% var yProbabilties = [] %>
 					<div class="col-sm-6 py-5">
 						<div class="card">
 							<h5 class="card-header"><%= d.sentence %></h5>
@@ -29,12 +29,7 @@
 										<%= key %>: <%= value['match']%>
 									</div>
 								<% } %>
-							  </p>
-							</div>
-						  </div>
-					</div>
-					<div class="col-sm-6 py-5">
-						<canvas id="chart<%-i%>" width="400" hieght="400" ></canvas>
+								<canvas id="chart<%-i%>" width="400" hieght="400" ></canvas>
 								<script>
 									createChart();
 									async function createChart(){
@@ -89,6 +84,9 @@
 									}
 									
 								</script>
+							  </p>
+							</div>
+						  </div>
 					</div>
 				<% }) %>
 			</div>
