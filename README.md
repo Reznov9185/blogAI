@@ -28,3 +28,6 @@
 3. [bootstrap](https://getbootstrap.com/)
 4. [node-sass](https://www.npmjs.com/package/node-sass)
 5. [ejs](https://www.npmjs.com/package/ejs)
+6. [mongoose](https://mongoosejs.com/)
+7. [tensorflowjs](https://www.npmjs.com/package/@tensorflow/tfjs)
+8. [tensorflow-models/toxicity](https://www.npmjs.com/package/@tensorflow-models/toxicity)
